@@ -4,6 +4,16 @@ namespace App\Helpers;
 
 class ApiResponse
 {
+    public static function success($data = null, string $message = 'Success', int $code = 200): array
+    {
+        return [
+            'isSuccessful' => true,
+            'code'         => $code,
+            'hasContent'   => !empty($data),
+            'message'      => $message,
+            'data'         => $data,
+        ];
+    }
     public static function error(
         $message,
         $detailedError = null,

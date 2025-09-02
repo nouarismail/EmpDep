@@ -32,4 +32,23 @@ class Department extends Model
                     ->withPivot(['from_date', 'to_date'])
                     ->withTimestamps();
     }
+
+    public function translations()
+    {
+        return $this->hasMany(DepartmentTranslation::class);
+    }
+
+    public function translated() 
+    {
+        $langId = app('translation_language_id') ?? 1;
+
+        return $this->hasOne(DepartmentTranslation::class)
+                    ->where('translation_language_id', $langId);
+    }
+
+    
+    public function getDisplayNameAttribute(): string
+    {
+        return optional($this->translated)->dept_name ?? $this->dept_name;
+    }
 }

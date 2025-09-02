@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Http\ViewModels\DepartmentIndexVM;
+use App\Helpers\ApiResponse;
 
 class DepartmentController extends Controller
 {
     public function index()
     {
-        return Department::with('employees')->paginate(10);
+        $vm = new DepartmentIndexVM();
+
+        $response = ApiResponse::success($vm->toArray());
+        return response()->json($response, 200);
     }
 
     public function store(Request $request)
