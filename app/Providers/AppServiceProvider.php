@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+use App\Observers\DepartmentObserver;
+use App\Models\Department;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Department::observe(DepartmentObserver::class);
     }
 }

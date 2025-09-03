@@ -17,7 +17,7 @@ class DepartmentIndexVM implements Arrayable
             'departments' => $this->getDepartments()->map(function ($department) {
                 return [
                     'id' => $department->id,
-                    // base column from your departments table:
+                    
                     'default_name' => $department->dept_name,
 
                     // all translations
@@ -25,7 +25,7 @@ class DepartmentIndexVM implements Arrayable
                         return [
                             'id'       => $t->id,
                             'dept_name'=> $t->dept_name,
-                            'language' => optional($t->language)->code, // e.g., 'en'
+                            'language' => optional($t->language)->code,
                         ];
                     }),
 

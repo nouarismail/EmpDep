@@ -6,6 +6,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\ViewModels\DepartmentIndexVM;
 use App\Helpers\ApiResponse;
+use Log;
 
 class DepartmentController extends Controller
 {
@@ -35,6 +36,12 @@ class DepartmentController extends Controller
 
     public function update(Request $request, Department $department)
     {
+        Log::info('HIT destroy', [
+        'id' => $department->id,
+        'route' => optional(request()->route())->uri(),
+        'method' => request()->method(),
+        'path' => request()->path(),
+    ]);
         $data = $request->validate([
             'dept_name' => 'sometimes|string|max:100|unique:departments,dept_name,' . $department->id,
         ]);
@@ -44,8 +51,9 @@ class DepartmentController extends Controller
         return response()->json($department);
     }
 
-    public function destroy(Department $department)
+    public function destroy(int $id)
     {
+         $department = \App\Models\Department::findOrFail($id);
         $department->delete();
         return response()->noContent();
     }

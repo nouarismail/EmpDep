@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Department extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,CascadeSoftDeletes; 
 
     protected $guarded = [
         'id',
@@ -26,9 +27,13 @@ class Department extends Model
         'deleted_by_user_id',
     ];
 
+    protected $cascadeDeletes  = ['departmentEmployees'];
+    protected $cascadeRestores = ['departmentEmployees'];
+
     public function employees()
     {
         return $this->belongsToMany(Employee::class, 'department_employee')
+                    ->using(DepartmentEmployee::class)  
                     ->withPivot(['from_date', 'to_date'])
                     ->withTimestamps();
     }
@@ -37,6 +42,12 @@ class Department extends Model
     {
         return $this->hasMany(DepartmentTranslation::class);
     }
+
+    public function departmentEmployees()
+    {
+        return $this->hasMany(DepartmentEmployee::class);
+    }
+
 
     public function translated() 
     {

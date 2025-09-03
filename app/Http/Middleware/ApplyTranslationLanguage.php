@@ -13,7 +13,7 @@ class ApplyTranslationLanguage
     public function handle($request, Closure $next)
     {
         // Example: read language ID from header, query param, or fallback
-        $langId = $request->header('translation_language_id', 1);
+        $langId = $request->header('translation_language_id', 2);
 
         // Store it in the container
         app()->instance('translation_language_id', $langId);
