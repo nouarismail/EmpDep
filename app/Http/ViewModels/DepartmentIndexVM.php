@@ -29,7 +29,7 @@ class DepartmentIndexVM implements Arrayable
                         ];
                     }),
 
-                    // one translation for current header (if you want it):
+                   
                     'current_translation' => optional(
                         $department->translated()->first()
                     )->dept_name,
