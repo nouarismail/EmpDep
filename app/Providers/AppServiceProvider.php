@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 use App\Observers\DepartmentObserver;
-use App\Models\Department;
+use App\Domain\Departments\Models\Department;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Models;
-
+namespace App\Domain\Departments\Models;
+use App\Domain\Employees\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

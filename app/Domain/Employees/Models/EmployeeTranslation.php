@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Domain\Employees\Models\Employee;
+use App\Domain\TranslationLanguage\Models\TranslationLanguage;
 
 class EmployeeTranslation extends Model
 {

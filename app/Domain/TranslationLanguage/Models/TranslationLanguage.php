@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\TranslationLanguage\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Employee extends Model
+class TranslationLanguage extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public static $translation_language_id=null;
 
     protected $guarded = [
         'id',
@@ -25,11 +27,4 @@ class Employee extends Model
         'updated_by_user_id',
         'deleted_by_user_id',
     ];
-
-    public function departments()
-    {
-        return $this->belongsToMany(Department::class, 'department_employee')
-                    ->withPivot(['from_date', 'to_date'])
-                    ->withTimestamps();
-    }
 }

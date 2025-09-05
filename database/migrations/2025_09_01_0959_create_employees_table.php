@@ -8,22 +8,30 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
-            $table->id();
+        if (! Schema::hasTable('employees')) {
+            try {
+                Schema::create('employees', function (Blueprint $table) {
 
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->date('hire_date');
+                    $table->id();
+
+                    $table->string('first_name', 50);
+                    $table->string('last_name', 50);
+                    $table->date('hire_date');
 
 
-            $table->foreignId('created_by_user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by_user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('deleted_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('created_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('updated_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('deleted_by_user_id')->nullable()->constrained('users')->nullOnDelete();
 
-            
-            $table->timestamps();
-            $table->softDeletes();
-        });
+
+                    $table->timestamps();
+                    $table->softDeletes();
+                });
+            } catch (\Exception $e) {
+                $this->down();
+                throw $e;
+            }
+        }
     }
 
     public function down(): void

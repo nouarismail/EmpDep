@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Department;
+use App\Domain\Departments\Models\Department;
 
 class DepartmentObserver
 {

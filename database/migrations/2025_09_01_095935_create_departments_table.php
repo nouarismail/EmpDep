@@ -8,20 +8,27 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->id();
+        if (! Schema::hasTable('departments')) {
+            try {
+                Schema::create('departments', function (Blueprint $table) {
+                    $table->id();
 
-            $table->string('dept_name', 100)->unique();
+                    $table->string('dept_name', 100)->unique();
 
 
-            $table->foreignId('created_by_user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by_user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('deleted_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('created_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('updated_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+                    $table->foreignId('deleted_by_user_id')->nullable()->constrained('users')->nullOnDelete();
 
-            
-            $table->timestamps();
-            $table->softDeletes();
-        });
+
+                    $table->timestamps();
+                    $table->softDeletes();
+                });
+            } catch (\Exception $e) {
+                $this->down();
+                throw $e;
+            }
+        }
     }
 
     public function down(): void

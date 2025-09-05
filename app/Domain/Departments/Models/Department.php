@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Departments\Models;
 
+use App\Domain\Employees\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Database\Factories\DepartmentFactory;
+
 
 class Department extends Model
 {
@@ -29,6 +32,11 @@ class Department extends Model
 
     protected $cascadeDeletes  = ['departmentEmployees'];
     protected $cascadeRestores = ['departmentEmployees'];
+
+    protected static function newFactory()
+    {
+        return DepartmentFactory::new();
+    }
 
     public function employees()
     {

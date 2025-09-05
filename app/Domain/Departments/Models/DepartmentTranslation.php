@@ -1,8 +1,11 @@
 <?php
-namespace App\Models;
+namespace App\Domain\Departments\Models;
+
+use App\Domain\TranslationLanguage\Models\TranslationLanguage;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class DepartmentTranslation extends Model
 {
