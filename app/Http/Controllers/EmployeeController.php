@@ -14,7 +14,7 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = (int) $request->query('per_page', 10);
+        $perPage = (int) config('pagination.per_page', 15);
 
         $query = Employee::query()->with('departments');
 
